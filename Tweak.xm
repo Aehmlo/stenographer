@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, SBIconLocation) {
 - (void)longPressTimerFired{
 	@autoreleasepool{
 		if([[[self icon] leafIdentifier] isEqualToString:@"com.apple.MobileSMS"]){
-			[(SBIcon *)[(SBIconModel *)[(SBIconController *)[%c(SBIconController) sharedInstance] model] expectedIconForDisplayIdentifier:@"ph.telegra.Telegraph"] launchFromLocation:SBIconLocationHomeScreen];
+			[[(SBIconModel *)[[%c(SBIconController) sharedInstance] model] expectedIconForDisplayIdentifier:@"ph.telegra.Telegraph"] launchFromLocation:SBIconLocationHomeScreen];
 		}else %orig();
 	}
 }
