@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, SBIconLocation) {
 %hook BFBadgerRootViewController
 
 - (id)initWithIconViewFrame:(CGRect)arg1 badgeFrame:(CGRect)arg2 sections:(NSArray *)arg3 inverted:(BOOL)arg4{
-     if([arg3 containsObject:@"com.apple.MobileSMS"]){
+     if([arg3 containsObject:@"com.apple.MobileSMS"] && ![arg3 containsObject:@"ph.telegra.Telegraph"]){
           NSMutableArray *newArray = [[NSMutableArray alloc] initWithArray:arg3];
           [newArray insertObject:@"ph.telegra.Telegraph" atIndex:[newArray indexOfObject:@"com.apple.MobileSMS"]];
           id ret = %orig(arg1, arg2, newArray, arg4);
