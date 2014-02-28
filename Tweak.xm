@@ -42,6 +42,21 @@ typedef NS_ENUM(NSInteger, SBIconLocation) {
 
 %end
 
+//The following code adds support for Badger on iOS 7 showing notifications for Telegram wherever Messages is included.
+%hook BFBadgerRootViewController
+
+- (id)initWithIconViewFrame:(CGRect)arg1 badgeFrame:(CGRect)arg2 sections:(NSArray *)arg3 inverted:(BOOL)arg4{
+     if([arg3 containsObject:@"com.apple.MobileSMS"]){
+          NSMutableArray *newArray = [[NSMutableArray alloc] initWithArray:arg3];
+          [newArray insertObject:@"ph.telegra.Telegraph" atIndex:[newArray indexOfObject:@"com.apple.MobileSMS"]];
+          id ret = %orig(arg1, arg2, newArray, arg4);
+          [newArray release];
+          return ret;
+     }
+     else return %orig(arg1, arg2, arg3, arg4);
+}
+%end
+
 //No need to show both icons; this code will hide the Telegram icon.
 //Also good documentation for libhide (and one of the main reasons I'm open-sourcing this.)
 
